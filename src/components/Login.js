@@ -1,3 +1,4 @@
+import React from "react";
 import { useForm } from "react-hook-form";
 
 export default function Login() {
@@ -20,7 +21,7 @@ export default function Login() {
           placeholder="Username"
         />
         {errors.username && (
-          <span>Username must not be more than fifteen characters</span>
+          <span>Username must not contain more than fifteen characters</span>
         )}
         <input
           {...register("password", { required: true })}
@@ -31,9 +32,9 @@ export default function Login() {
           placeholder="Password"
         />
         {errors.password && (
-          <span>Password needs to be more than six characters</span>
+          <span>Password must contain at least six characters</span>
         )}
-        <input type="submit" />
+        <input type="submit" value="SE CONNECTER" />
       </form>
     </div>
   );
