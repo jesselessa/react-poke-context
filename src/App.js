@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useState } from "react";
 // import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
@@ -8,11 +8,17 @@ import Login from "./components/Login";
 // Context : user connection status
 export const UserContext = createContext({ isLogged: false });
 
-function App() {
-  // State de App.js :
-  const [isLogged, setLogged] = useState(false);
+// Context : Pokemon's history
+export const PokemonContext = createContext({
+  PokemonsHistory: [],
+});
 
-  // Function wich changes the context according to the user's connection status :
+function App() {
+  // State from App.js :
+  const [isLogged, setLogged] = useState(false);
+  const [PokemonsHistory, setPokemonsHistory] = useState([]);
+
+  // Function which changes the context according to the user's connection status :
   const setAuth = () => {
     if (isLogged === false) {
       setLogged(true);
@@ -21,10 +27,18 @@ function App() {
     }
   };
 
+  // Function which clears Pokemon's history when the user logs out
+  const cleanArray = () => {
+    console.log("efface l'historique Pokemon");
+    setPokemonsHistory([]);
+  };
+
   // Context and function saved in a variable :
   const value = {
     isLogged: isLogged,
     setAuth: setAuth,
+    cleanArray: cleanArray,
+    PokemonsHistory: PokemonsHistory,
   };
 
   return (

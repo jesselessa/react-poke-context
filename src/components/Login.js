@@ -1,12 +1,36 @@
+// React
+import { useContext } from "react";
+
+// Libraries
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
+
+// Contexts
+import { UserContext } from "../App";
+import { PokemonContext } from "../App";
 
 export default function Login() {
+  // Appel du context depuis App.js
+  const userState = useContext(UserContext);
+  const pokemonState = useContext(PokemonContext);
+
+  // useHistory from react-router-dom
+  const history = useHistory();
+
+  // Form syntax by react-hook
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    // If the form is valid, the user will be directly sent to the homepage
+    history.push("/"); // Calling of function setAuth from App.js
+    userState.setAuth();
+    // To empty array storage
+    userState.cleanArray();
+  };
 
   return (
     <div>
@@ -19,9 +43,7 @@ export default function Login() {
           maxLength={15}
           placeholder="Username"
         />
-        {errors.username && (
-          <span>Username must not contain more than fifteen characters</span>
-        )}
+        {errors.username && <span>Enter a valid username</span>}
         <input
           {...register("password", { required: true })}
           type="password"
@@ -30,10 +52,16 @@ export default function Login() {
           minLength={6}
           placeholder="Password"
         />
-        {errors.password && (
-          <span>Password must contain at least six characters</span>
+        {errors.password && <span>Enter a valid password</span>}
+        {/* <input type="submit" value="SE CONNECTER" /> */}
+        {/*Display login/logout button according to user's connection status */}
+        {userState.isLogged ? (
+          <button type="submit" onClick={onSubmit}>
+            Logout
+          </button>
+        ) : (
+          <button type="submit">Login</button>
         )}
-        <input type="submit" value="SE CONNECTER" />
       </form>
     </div>
   );
