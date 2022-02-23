@@ -9,8 +9,9 @@ import { useHistory } from "react-router-dom";
 import { UserContext } from "../App";
 import { PokemonContext } from "../App";
 
+// Login functional component
 export default function Login() {
-  // Appel du context depuis App.js
+  // Context from App.js
   const userState = useContext(UserContext);
   const pokemonState = useContext(PokemonContext);
 
@@ -25,8 +26,9 @@ export default function Login() {
   } = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    // If the form is valid, the user will be directly sent to the homepage
-    history.push("/"); // Calling of function setAuth from App.js
+    // If user's form is valid, he will be directly sent to homepage
+    history.push("/");
+    // setAuth function calling from App.js
     userState.setAuth();
     // To empty array storage
     userState.cleanArray();
@@ -53,12 +55,10 @@ export default function Login() {
           placeholder="Password"
         />
         {errors.password && <span>Enter a valid password</span>}
-        {/* <input type="submit" value="SE CONNECTER" /> */}
+
         {/*Display login/logout button according to user's connection status */}
         {userState.isLogged ? (
-          <button type="submit" onClick={onSubmit}>
-            Logout
-          </button>
+          <button type="submit">Logout</button>
         ) : (
           <button type="submit">Login</button>
         )}
