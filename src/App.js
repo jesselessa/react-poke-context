@@ -1,5 +1,9 @@
+//Import from "react"
 import React, { createContext, useState } from "react";
+
 // import "bootstrap/dist/css/bootstrap.min.css";
+
+// Components
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./components/Home";

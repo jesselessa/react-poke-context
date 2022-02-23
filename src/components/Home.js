@@ -1,10 +1,11 @@
-// Imports from React
+// Import from React
 import { useState, useEffect, useContext } from "react";
 
 // Import from App.js :
 import { UserContext } from "../App";
 import { PokemonContext } from "../App";
 
+// Independent function randomNumber
 function randomNumber() {
   return Math.floor(Math.random() * 875) + 1;
 }
@@ -29,7 +30,7 @@ export default function Home() {
         (pokemon) => pokemon.id === randomPokemon
       ) !== undefined
     ) {
-      console.log("if");
+      // console.log("if");
       setPokemon(
         pokemonState.PokemonsHistory.find(
           (pokemon) => pokemon.id === randomPokemon
@@ -58,22 +59,26 @@ export default function Home() {
 
   return (
     <>
-      {loading ? (
-        <p>Content is loading...</p>
-      ) : (
+      {userState.isLogged ? (
         <>
           <button type="submit" onClick={handleClick}>
             GET A POKEMON
           </button>
-          <div className="infos">
-            <p>Id : {randomPokemon}</p>
-            <p>Name : {pokemon.name}</p>
-            <p>Height : {pokemon.height}</p>
-            <p>Weight : {pokemon.weight}</p>
-            {/* Ckeck later to display all different types */}
-            <p>Type(s) : {pokemon.types[0]?.type?.name}</p>
-          </div>
+
+          {loading ? (
+            <p>Content is loading...</p>
+          ) : (
+            <div className="infos">
+              <p>Name : {pokemon.name}</p>
+              <p>Height : {pokemon.height}</p>
+              <p>Weight : {pokemon.weight}</p>
+              {/* Ckeck later to display all different types */}
+              <p>Type(s) : {pokemon.types[0]?.type?.name}</p>
+            </div>
+          )}
         </>
+      ) : (
+        <p>You need to be logged in</p>
       )}
     </>
   );
